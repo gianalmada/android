@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res-auto"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android1:layout_height="200dp"
+    android1:layout_width="match_parent"
+    android:cardElevation="4dp"
+    android1:layout_marginBottom="8dp">
+
+    <RelativeLayout
+        android1:layout_width="match_parent"
+        android1:layout_height="match_parent">
+
+        <ImageView
+            android1:id="@+id/image_makanan"
+            android1:scaleType="centerCrop"
+            android1:layout_width="match_parent"
+            android1:layout_height="match_parent" />
+
+        <customfonts.MyTextView
+            android1:id="@+id/nama_makanan"
+            android1:text="nama makanan"
+            android1:layout_width="match_parent"
+            android1:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

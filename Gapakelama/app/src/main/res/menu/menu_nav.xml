@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/taborder"
+        android:icon="@drawable/ic_payment"
+        android:iconTint="#000000"/>
+
+    <item
+        android:id="@+id/tabmenu"
+        android:icon="@drawable/ic_menu"
+        android:iconTint="#000000"/>
+
+    <item
+        android:id="@+id/tabchart"
+        android:icon="@drawable/ic_order"
+        android:iconTint="#000000"/>
+
+
+</menu>
