@@ -33,13 +33,14 @@
             android:label="@string/title_activity_signup" />
         <activity
             android:name=".Navigations.MenuActivity"
-            android:label="Menu"/>
+            android:label="Menu" />
         <activity android:name=".Sign.SigninActivity" />
         <activity android:name=".Modal.OrderModal_Activity" />
         <activity android:name=".Promo_Activity" />
         <activity android:name=".Navigations.OrderActivity" />
         <activity android:name=".Navigations.ChartActivity" />
-        <activity android:name=".LocationActivity"></activity>
+        <activity android:name=".LocationActivity" />
+        <activity android:name=".DashboardActivity"></activity>
     </application>
 
 </manifest>

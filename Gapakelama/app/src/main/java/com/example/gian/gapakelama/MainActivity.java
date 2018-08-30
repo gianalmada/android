@@ -158,7 +158,7 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
                                     myDialog.dismiss();
 
                                     finish();
-                                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                                    startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
 
                                 }
                             });

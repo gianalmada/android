@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.gian.gapakelama.DashboardActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nav_background"
+        app:srcCompat="@drawable/signinbg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <customfonts.MyTextView
+                android:id="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="3dp"
+                android:text="MAIN MENU"
+                android:textColor="@color/colorText"
+                android:textSize="40sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="35dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="96dp"
+                    android:layout_height="58dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_table" />
+
+                <TextView
+                    android:id="@+id/nomeja"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="No. Meja"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#3c8e5e8e">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/imageButton5"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/buttonstyle_whitebg"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/neworder" />
+
+                <ImageButton
+                    android:id="@+id/imageButton5"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/buttonstyle_whitebg"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/about" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/imageButton5"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/buttonstyle_whitebg"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/users" />
+
+                <ImageButton
+                    android:id="@+id/imageButton5"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/buttonstyle_whitebg"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/baseline_exit_to_app_black_18dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
