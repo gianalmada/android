@@ -82,6 +82,18 @@ public class SharedPrefManager {
         return  user_id;
     }
 
+    public String getName() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString(KEY_NAME, null);
+        return  name;
+    }
+
+    public String getEmail() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString(KEY_EMAIL, null);
+        return  email;
+    }
+
     public String getScan() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String nomeja = sharedPreferences.getString(KEY_TABLENO, null);

@@ -24,7 +24,6 @@ import com.example.gian.gapakelama.Helper.ScanQR;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
 import com.example.gian.gapakelama.Helper.URLs;
 import com.example.gian.gapakelama.ModelDB.RequestHandler;
-import com.example.gian.gapakelama.Navigations.MenuActivity;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 
 import org.json.JSONException;
@@ -50,6 +49,12 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
         if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivity(new Intent(this, SigninActivity.class));
+            return;
+        }
+
+        if (SharedPrefManager.getInstance(this).isScanned()) {
+            finish();
+            startActivity(new Intent(this, DashboardActivity.class));
             return;
         }
 
@@ -220,13 +225,15 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(MainActivity.this,response,Toast.LENGTH_LONG).show();
+                        Log.d("myTag", response);
+//                        Toast.makeText(DashboardActivity.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                        Log.d("myTag", error.toString());
+//                        Toast.makeText(DashboardActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override

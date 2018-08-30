@@ -1,10 +1,8 @@
-package com.example.gian.gapakelama;
+package com.example.gian.gapakelama.Sign;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -14,9 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
-import com.example.gian.gapakelama.Navigations.MenuActivity;
-import com.example.gian.gapakelama.Sign.ProfileActivity;
-import com.example.gian.gapakelama.Sign.SigninActivity;
+import com.example.gian.gapakelama.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,57 +20,44 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import customfonts.MyTextView;
 
-public class DashboardActivity extends Activity {
+public class ProfileActivity extends Activity {
 
-    @BindView(R.id.nomeja)
-    TextView nomeja;
-
-    String getNo_meja;
+    @BindView(R.id.name)
+    MyTextView name;
+    @BindView(R.id.email)
+    TextView email;
+    @BindView(R.id.phone)
+    TextView phone;
 
     SharedPrefManager sharedPrefManager;
     RequestQueue requestQueue;
 
+    String getNo_meja;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-
-        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
-            finish();
-            startActivity(new Intent(this, SigninActivity.class));
-            return;
-        }
+        setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+
+        String names = SharedPrefManager.getInstance(this).getName();
+        String emails = SharedPrefManager.getInstance(this).getEmail();
+        name.setText(names);
+        email.setText(emails);
+//        phone.setText();
 
         requestQueue = Volley.newRequestQueue(getBaseContext());
 
         String no_meja = SharedPrefManager.getInstance(this).getScan();
-        nomeja.setText(no_meja);
         getNo_meja = no_meja;
     }
 
-    @OnClick({R.id.orderButton, R.id.aboutButton, R.id.profileButton, R.id.exitButton})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.orderButton:
-                Intent it = new Intent(DashboardActivity.this, MenuActivity.class);
-                startActivity(it);
-                finish();
-                break;
-            case R.id.aboutButton:
-                Intent it2 = new Intent(DashboardActivity.this, LocationActivity.class);
-                startActivity(it2);
-                break;
-            case R.id.profileButton:
-                Intent it3 = new Intent(DashboardActivity.this, ProfileActivity.class);
-                startActivity(it3);
-                break;
-            case R.id.exitButton:
-                gantiStatus();
-                SharedPrefManager.getInstance(this).endOrders();
-                break;
-        }
+    @OnClick(R.id.signoutButton)
+    public void onViewClicked() {
+        gantiStatus();
+        SharedPrefManager.getInstance(this).logout();
     }
 
     private void gantiStatus() {

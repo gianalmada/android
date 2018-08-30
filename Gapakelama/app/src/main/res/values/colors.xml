@@ -6,4 +6,7 @@
     <color name="doff">#231f20</color>
     <color name="colortext">#100b20</color>
     <color name="colorhint">#a9aaac</color>
+    <color name="graylight">#fafafa</color>
+    <color name="startblue">#2c662e</color>
+    <color name="endblue">#47a64a</color>
 </resources>

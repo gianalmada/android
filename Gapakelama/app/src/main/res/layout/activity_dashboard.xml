@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/nav_background"
-        app:srcCompat="@drawable/signinbg" />
+        android:src="@drawable/signinbg" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,78 +19,57 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="85dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
-            <customfonts.MyTextView
-                android:id="@+id/head"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="3dp"
-                android:text="MAIN MENU"
-                android:textColor="@color/colorText"
-                android:textSize="40sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="35dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="96dp"
-                    android:layout_height="58dp"
-                    android:layout_gravity="center"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_table" />
-
-                <TextView
-                    android:id="@+id/nomeja"
-                    android:layout_width="wrap_content"
-                    android:layout_height="55dp"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="No. Meja"
-                    android:textColor="@color/colorText"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-
+                android:layout_height="160dp"
+                android:layout_alignBottom="@+id/frameLayout"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/signupheader" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#3c8e5e8e">
-            
+            android:layout_weight="3"
+            android:background="@android:color/transparent">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:id="@+id/orderButton"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:adjustViewBounds="false"
                     android:background="@drawable/buttonstyle_whitebg"
-                    android:scaleType="fitStart"
-                    app:srcCompat="@drawable/neworder" />
+                    android:cropToPadding="false"
+                    android:elevation="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/neworder" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="50dp"
+                    android:id="@+id/aboutButton"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="30dp"
                     android:background="@drawable/buttonstyle_whitebg"
+                    android:elevation="5dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/about" />
+                    android:src="@drawable/about" />
 
             </LinearLayout>
 
@@ -103,24 +81,52 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:id="@+id/profileButton"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
                     android:background="@drawable/buttonstyle_whitebg"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/users" />
+                    android:src="@drawable/users"
+                    android:elevation="5dp"/>
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="50dp"
+                    android:id="@+id/exitButton"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="30dp"
                     android:background="@drawable/buttonstyle_whitebg"
                     android:scaleType="fitStart"
-                    app:srcCompat="@drawable/baseline_exit_to_app_black_18dp" />
+                    android:src="@drawable/baseline_exit_to_app_black_48dp"
+                    android:elevation="5dp"/>
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:elevation="50dp">
+
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="58dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_table"/>
+
+            <TextView
+                android:id="@+id/nomeja"
+                android:layout_width="96dp"
+                android:layout_height="58dp"
+                android:gravity="center"
+                android:text="No. Meja"
+                android:textColor="@color/colortext"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
 
