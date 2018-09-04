@@ -7,21 +7,42 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.gian.gapakelama.Helper.BottomNavigationViewHelper;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
+import com.example.gian.gapakelama.Menus.Makanan;
+import com.example.gian.gapakelama.Menus.MakananAdapter;
+import com.example.gian.gapakelama.Menus.Minuman;
+import com.example.gian.gapakelama.Menus.MinumanAdapter;
 import com.example.gian.gapakelama.R;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 import com.example.gian.gapakelama.animation.AnimationTabsListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import customfonts.MyTextView;
 
 public class MenuActivity extends Activity {
+
+    private static final String MAKANAN_URL = "http://gapakelama.net/JSON/GetMakanan.php";
+    private static final String MINUMAN_URL = "http://gapakelama.net/JSON/GetMinuman.php";
 
     TabHost tabHost;
 
@@ -31,7 +52,12 @@ public class MenuActivity extends Activity {
 
     SharedPrefManager sharedPrefManager;
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView1,recyclerView2;
+    MakananAdapter adapter;
+    MinumanAdapter adapter2;
+
+    List<Makanan> productList;
+    List<Minuman> productList2;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -45,6 +71,19 @@ public class MenuActivity extends Activity {
             return;
         }
 
+        productList = new ArrayList<>();
+        productList2 = new ArrayList<>();
+
+        recyclerView1 = (RecyclerView) findViewById(R.id.recyclerView1);
+        recyclerView1.setHasFixedSize(true);
+        recyclerView1.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView2 = (RecyclerView) findViewById(R.id.recyclerView2);
+        recyclerView2.setHasFixedSize(true);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+
+        loadMakanan();
+        loadMinuman();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -110,5 +149,85 @@ public class MenuActivity extends Activity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    private void loadMakanan(){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, MAKANAN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONArray listMakanan  = new JSONArray(response);
+
+                            for(int i = 0; i<listMakanan.length();i++){
+                                JSONObject menuMakanan  = listMakanan.getJSONObject(i);
+
+                                String id = menuMakanan.getString("id");
+                                String nama = menuMakanan.getString("nama");
+                                Double harga = menuMakanan.getDouble("harga");
+                                String image = menuMakanan.getString("image");
+
+                                Makanan product = new Makanan(id,nama,harga,image);
+                                productList.add(product);
+                            }
+
+                            adapter = new MakananAdapter(MenuActivity.this, productList);
+                            recyclerView1.setAdapter(adapter);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("myTag", error.toString());
+//                        Toast.makeText(DashboardActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    private void loadMinuman(){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, MINUMAN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONArray listMinuman  = new JSONArray(response);
+
+                            for(int i = 0; i<listMinuman.length();i++){
+                                JSONObject menuMinuman  = listMinuman.getJSONObject(i);
+
+                                String id = menuMinuman.getString("id");
+                                String nama = menuMinuman.getString("nama");
+                                Double harga = menuMinuman.getDouble("harga");
+                                String image = menuMinuman.getString("image");
+
+                                Minuman product = new Minuman(id,nama,harga,image);
+                                productList2.add(product);
+                            }
+
+                            adapter2 = new MinumanAdapter(MenuActivity.this, productList2);
+                            recyclerView2.setAdapter(adapter2);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("myTag", error.toString());
+//                        Toast.makeText(DashboardActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 }
