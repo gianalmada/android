@@ -6,14 +6,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+<<<<<<< Updated upstream
 import android.widget.Button;
+=======
+import android.view.ViewGroup;
+>>>>>>> Stashed changes
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -96,19 +103,31 @@ public class MenuActivity extends Activity {
         loadMakanan();
         loadMinuman();
 
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+        for (int i = 0; i < menuView.getChildCount(); i++) {
+            final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
+            final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
+            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, displayMetrics);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, displayMetrics);
+            iconView.setLayoutParams(layoutParams);
+        }
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
 
+<<<<<<< Updated upstream
         mBadge = (NotificationBadge) findViewById(R.id.badge_order);
 
+=======
+>>>>>>> Stashed changes
 
         String nomeja = SharedPrefManager.getInstance(this).getScan();
 
         no_meja = (TextView) findViewById(R.id.nomeja);
-        no_meja.setText(nomeja);
 
         //TAB
         tabHost = (TabHost) findViewById(R.id.tabHost);

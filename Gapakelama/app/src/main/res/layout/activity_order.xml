@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:design="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.gian.gapakelama.Navigations.MenuActivity"
     tools:ignore="NamespaceTypo">
@@ -27,6 +28,60 @@
 
     </android.support.v7.widget.Toolbar>
 
+
+    <FrameLayout
+        android:id="@+id/tabcontent"
+        android:background="@drawable/splash"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/cart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <include
+                layout="@layout/payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/orderSubmit"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/cart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/confirmOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttonstyle_sign"
+                android:textColor="#fff"
+                android:text="Confirm Payment" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navbottom"
         android:layout_width="match_parent"
@@ -37,4 +92,4 @@
 
     </android.support.design.widget.BottomNavigationView>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
