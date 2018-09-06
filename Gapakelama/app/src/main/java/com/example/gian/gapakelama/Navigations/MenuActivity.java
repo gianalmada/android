@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ import com.example.gian.gapakelama.Menus.MinumanAdapter;
 import com.example.gian.gapakelama.R;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 import com.example.gian.gapakelama.animation.AnimationTabsListener;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +40,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import customfonts.MyTextView;
 
 public class MenuActivity extends Activity {
@@ -52,12 +57,16 @@ public class MenuActivity extends Activity {
 
     SharedPrefManager sharedPrefManager;
 
+    NotificationBadge mBadge;
+
     private RecyclerView recyclerView1,recyclerView2;
     MakananAdapter adapter;
     MinumanAdapter adapter2;
 
     List<Makanan> productList;
     List<Minuman> productList2;
+
+    int listOrders=0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -70,6 +79,8 @@ public class MenuActivity extends Activity {
             startActivity(new Intent(this, SigninActivity.class));
             return;
         }
+
+        ButterKnife.bind(this);
 
         productList = new ArrayList<>();
         productList2 = new ArrayList<>();
@@ -90,6 +101,9 @@ public class MenuActivity extends Activity {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
+
+        mBadge = (NotificationBadge) findViewById(R.id.badge_order);
+
 
         String nomeja = SharedPrefManager.getInstance(this).getScan();
 
@@ -143,6 +157,19 @@ public class MenuActivity extends Activity {
                 return false;
             }
         });
+    }
+
+    @OnClick({R.id.button_add_minuman, R.id.button_add_makanan})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.button_add_minuman:
+                mBadge.setNumber(++listOrders);
+                break;
+            case R.id.button_add_makanan:
+                mBadge.setNumber(++listOrders);
+                break;
+
+        }
     }
 
     @Override

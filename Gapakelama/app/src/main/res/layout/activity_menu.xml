@@ -152,6 +152,16 @@
         android:background="@drawable/nav_background"
         design:menu="@menu/menu_nav">
 
+        <com.nex3z.notificationbadge.NotificationBadge
+            android:id="@+id/badge_order"
+            android:layout_toRightOf="@+id/tabchart"
+            android:layout_alignTop="@+id/tabchart"
+            android:layout_marginLeft="-16dp"
+            android:layout_marginTop="-8dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            app:badgeBackground="@drawable/badge_list_order"
+            app:maxTextLength="2"></com.nex3z.notificationbadge.NotificationBadge>
     </android.support.design.widget.BottomNavigationView>
 
 </LinearLayout>

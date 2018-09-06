@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.gian.gapakelama.Navigations.MenuActivity">
     <item
         android:id="@+id/taborder"
         android:icon="@drawable/ic_payment"
