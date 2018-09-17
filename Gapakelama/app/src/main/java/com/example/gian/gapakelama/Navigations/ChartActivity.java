@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -15,10 +17,20 @@ import android.view.ViewGroup;
 
 import com.example.gian.gapakelama.Helper.BottomNavigationViewHelper;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
+import com.example.gian.gapakelama.Orders.OrderArray;
+import com.example.gian.gapakelama.Orders.OrdersAdapter;
 import com.example.gian.gapakelama.R;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 
 public class ChartActivity extends Activity {
+
+    private RecyclerView recyclerView;
+
+    OrdersAdapter adapter;
+
+    OrderArray orders;
+
+//    List<Orders> productList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +42,13 @@ public class ChartActivity extends Activity {
             startActivity(new Intent(this, SigninActivity.class));
             return;
         }
+
+        recyclerView = (RecyclerView) findViewById(R.id.cartRecycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new OrdersAdapter(ChartActivity.this, orders.getProductList());
+        recyclerView.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

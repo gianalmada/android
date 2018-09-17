@@ -16,11 +16,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-<<<<<<< Updated upstream
-import android.widget.Button;
-=======
 import android.view.ViewGroup;
->>>>>>> Stashed changes
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -48,8 +44,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import customfonts.MyTextView;
+
+import static android.content.ContentValues.TAG;
 
 public class MenuActivity extends Activity {
 
@@ -73,7 +70,7 @@ public class MenuActivity extends Activity {
     List<Makanan> productList;
     List<Minuman> productList2;
 
-    int listOrders=0;
+    int listOrders = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -118,12 +115,6 @@ public class MenuActivity extends Activity {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
-
-<<<<<<< Updated upstream
-        mBadge = (NotificationBadge) findViewById(R.id.badge_order);
-
-=======
->>>>>>> Stashed changes
 
         String nomeja = SharedPrefManager.getInstance(this).getScan();
 
@@ -178,19 +169,6 @@ public class MenuActivity extends Activity {
         });
     }
 
-    @OnClick({R.id.button_add_minuman, R.id.button_add_makanan})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.button_add_minuman:
-                mBadge.setNumber(++listOrders);
-                break;
-            case R.id.button_add_makanan:
-                mBadge.setNumber(++listOrders);
-                break;
-
-        }
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -220,6 +198,7 @@ public class MenuActivity extends Activity {
 
                             adapter = new MakananAdapter(MenuActivity.this, productList);
                             recyclerView1.setAdapter(adapter);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -255,10 +234,12 @@ public class MenuActivity extends Activity {
                                 String image = menuMinuman.getString("image");
 
                                 Minuman product = new Minuman(id,nama,harga,image);
+                                Log.d(TAG, "onResponse: "+product);
                                 productList2.add(product);
                             }
 
                             adapter2 = new MinumanAdapter(MenuActivity.this, productList2);
+
                             recyclerView2.setAdapter(adapter2);
 
                         } catch (JSONException e) {

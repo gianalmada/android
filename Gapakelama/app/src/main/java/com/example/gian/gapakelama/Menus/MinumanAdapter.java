@@ -40,7 +40,7 @@ public class MinumanAdapter extends RecyclerView.Adapter<MinumanAdapter.ProductV
         Minuman product = productList2.get(position);
 
         holder.textViewNama.setText(product.getNama());
-        holder.textViewHarga.setText(String.valueOf(product.getHarga()));
+        holder.textViewHarga.setText("Rp."+String.valueOf(product.getHarga()));
 
         Glide.with(mCtx).load(product.getImage()).into(holder.imageView);
     }

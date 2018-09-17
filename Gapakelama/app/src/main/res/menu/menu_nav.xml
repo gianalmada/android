@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.gian.gapakelama.Navigations.MenuActivity">
     <item
         android:id="@+id/taborder"
@@ -18,7 +19,8 @@
         android:id="@+id/tabchart"
         android:title="Cart"
         android:icon="@drawable/ic_order"
+        app:actionLayout="@layout/badge_order"
+        app:showAsAction="always"
         android:iconTint="#000000"/>
-
 
 </menu>

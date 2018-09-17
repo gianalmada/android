@@ -23,7 +23,7 @@ public class OrderActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+        setContentView(R.layout.activity_payment);
 
         if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
