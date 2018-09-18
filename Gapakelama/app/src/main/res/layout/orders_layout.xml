@@ -14,6 +14,7 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:clickable="true"
+        android:elevation="2dp"
         android:padding="10dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="3dp">
@@ -31,29 +32,29 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <customfonts.MyTextView
-                    android:id="@+id/id_menu_order"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="Id Makanan"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/doff"
-                    android:textSize="16sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorhint" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_below="@+id/image_makanan"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
+
+                    <customfonts.MyTextView
+                        android:id="@+id/id_menu_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Id Makanan"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/doff"
+                        android:textSize="16sp" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <customfonts.MyTextView
                         android:id="@+id/nama_menu_order"
@@ -66,11 +67,18 @@
                         android:text="Nasi Goreng"
                         android:textColor="@color/endblue"
                         android:textSize="16sp" />
+                </LinearLayout>
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorhint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/image_makanan"
+                    android:orientation="horizontal">
 
                     <customfonts.MyTextView
                         android:id="@+id/harga_menu_order"
@@ -91,18 +99,15 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <EditText
+                    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                         android:id="@+id/qty_menu_order"
-                        android:layout_width="20dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="numberSigned" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:inputType="numberSigned"
+                        android:padding="5dp" />
 
                 </LinearLayout>
 

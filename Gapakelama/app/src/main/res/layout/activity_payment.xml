@@ -31,10 +31,180 @@
 
     <FrameLayout
         android:id="@+id/tabcontent"
-        android:background="@drawable/splash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <customfonts.MyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="Recent Order :"
+                android:textColor="@color/startblue" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorhint"
+                android:padding="5dp" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin_top="10dp"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:padding="10dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <LinearLayout
+                        android:layout_width="335dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <customfonts.MyTextView
+                            android:id="@+id/date_order"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Date : dd-mm-yyyy"
+                            android:textColor="@color/endblue"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <customfonts.MyTextView
+                                android:id="@+id/transaksi_id"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="No. Struk"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/doff"
+                                android:textSize="16sp" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <customfonts.MyTextView
+                                android:id="@+id/no_meja_order"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="No."
+                                android:textAlignment="textStart"
+                                android:textColor="@color/doff"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorhint" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_below="@+id/image_makanan"
+                            android:orientation="horizontal">
+
+                            <customfonts.MyTextView
+                                android:id="@+id/harga_menu_order"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="Total"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <customfonts.MyTextView
+                                android:id="@+id/transaksi_id"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="Rp. 100.000,-"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/doff"
+                                android:textSize="19sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/delete_item"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:src="@drawable/baseline_delete_outline_black_48dp"
+                        tools:background="@android:color/transparent"
+                        tools:scaleType="centerInside" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tabcontent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@drawable/splash">
 
         <LinearLayout
             android:id="@+id/cart"
@@ -43,6 +213,20 @@
             android:background="#fff"
             android:orientation="vertical"
             android:padding="10dp">
+
+            <customfonts.MyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="Hystory : "
+                android:textColor="@color/endblue" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:padding="5dp"
+                android:background="@color/colorhint" />
 
             <include
                 layout="@layout/payment"
@@ -80,7 +264,6 @@
         </LinearLayout>
 
     </FrameLayout>
-
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navbottom"
