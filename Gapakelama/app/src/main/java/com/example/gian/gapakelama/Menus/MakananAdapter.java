@@ -1,22 +1,25 @@
 package com.example.gian.gapakelama.Menus;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.gian.gapakelama.Orders.OrderArray;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.gian.gapakelama.R;
 
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
+import customfonts.MyTextView;
 
 /**
  * Created by gian on 04/09/2018.
@@ -50,21 +53,46 @@ public class MakananAdapter extends RecyclerView.Adapter<MakananAdapter.ProductV
 
         Glide.with(mCtx).load(product.getImage()).into(holder.imageView);
 
-        final String id = product.getId();
-        final String nama = product.getNama();
-        final double harga = product.getHarga();
-
         holder.cardView.setOnClickListener( new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
 
-                OrderArray array = new OrderArray(id,nama,harga);
+                showAddToCartDialog(position);
 
                 holder.cardView.setClickable(false);
-                Log.d(TAG, "onClick: "+array);
             }
         });
+    }
+
+    private void showAddToCartDialog(int position) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
+        View itemView = LayoutInflater.from(mCtx)
+                .inflate(R.layout.popup_add_cart, null);
+
+        ImageView img_selected_menu = (ImageView)itemView.findViewById(R.id.img_menu_selected);
+        MyTextView name_selected_menu = (MyTextView)itemView.findViewById(R.id.nama_menu_cart);
+        MyTextView harga_selected_menu = (MyTextView)itemView.findViewById(R.id.harga_menu_cart);
+        EditText catatan_menu = (EditText)itemView.findViewById(R.id.catatan);
+        ElegantNumberButton set_qty = (ElegantNumberButton)itemView.findViewById(R.id.qty_menu_cart);
+
+        Glide.with(mCtx).load(productList.get(position).getImage()).into(img_selected_menu);
+
+        name_selected_menu.setText(productList.get(position).getNama());
+        harga_selected_menu.setText("Rp."+String.valueOf(productList.get(position).getHarga()));
+
+        builder.setView(itemView);
+        builder.setNegativeButton("Add to Cart", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                Toast.makeText(mCtx, "Item Berhasil di Tambahkan",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
     }
 
     @Override

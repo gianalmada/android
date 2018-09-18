@@ -19,7 +19,6 @@
         android:id="@+id/tabchart"
         android:title="Cart"
         android:icon="@drawable/ic_order"
-        app:actionLayout="@layout/badge_order"
         app:showAsAction="always"
         android:iconTint="#000000"/>
 

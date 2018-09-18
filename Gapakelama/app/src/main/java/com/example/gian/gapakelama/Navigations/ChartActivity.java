@@ -46,9 +46,9 @@ public class ChartActivity extends Activity {
         recyclerView = (RecyclerView) findViewById(R.id.cartRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        adapter = new OrdersAdapter(ChartActivity.this, orders.getProductList());
-        recyclerView.setAdapter(adapter);
+//
+//        adapter = new OrdersAdapter(ChartActivity.this, orders.getProductList());
+//        recyclerView.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
