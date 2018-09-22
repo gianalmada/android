@@ -9,18 +9,33 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.gian.gapakelama.Database.Model.DataSource.CartRepository;
+import com.example.gian.gapakelama.Database.Model.Local.CartDataSource;
+import com.example.gian.gapakelama.Database.Model.Local.CartDatabase;
 import com.example.gian.gapakelama.Helper.BottomNavigationViewHelper;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
 import com.example.gian.gapakelama.Orders.OrderArray;
 import com.example.gian.gapakelama.Orders.OrdersAdapter;
 import com.example.gian.gapakelama.R;
 import com.example.gian.gapakelama.Sign.SigninActivity;
+import com.example.gian.gapakelama.Util.Server;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static android.content.ContentValues.TAG;
 
 public class ChartActivity extends Activity {
 
@@ -29,6 +44,12 @@ public class ChartActivity extends Activity {
     OrdersAdapter adapter;
 
     OrderArray orders;
+
+    @BindView(R.id.title_struck)
+    TextView nostruck;
+
+    @BindView(R.id.date_trans)
+    TextView date_trans;
 
 //    List<Orders> productList;
 
@@ -43,12 +64,24 @@ public class ChartActivity extends Activity {
             return;
         }
 
+        Log.d(TAG, "onCreate: "+Server.cartRepository.getCartList());
+
+        ButterKnife.bind(this);
+
+        String no_struck = SharedPrefManager.getInstance(this).getNoStruk();
+        nostruck.setText("No. Transaksi : "+no_struck);
+
+        DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+
+        String date = df.format(Calendar.getInstance().getTime());
+        date_trans.setText("Date :"+date);
+
+
         recyclerView = (RecyclerView) findViewById(R.id.cartRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        adapter = new OrdersAdapter(ChartActivity.this, orders.getProductList());
-//        recyclerView.setAdapter(adapter);
+
+        initDB();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -94,6 +127,11 @@ public class ChartActivity extends Activity {
             }
         });
 
+    }
+
+    private void initDB() {
+        Server.cartDatabase = CartDatabase.getInstance(this);
+        Server.cartRepository = CartRepository.getInstance(CartDataSource.getInstance(Server.cartDatabase.cartDAO()));
     }
 
     @Override

@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="10dp"
-                android:text="Recent Order :"
+                android:text="Active Order :"
                 android:textColor="@color/startblue" />
 
             <View

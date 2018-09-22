@@ -29,6 +29,53 @@
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout
+        android:id="@+id/orderSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/struck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <customfonts.MyTextView
+                android:id="@+id/title_struck"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:padding="5dp"
+                android:text="No Stuck"
+                android:textColor="@color/doff"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorhint"
+                android:padding="5dp" />
+
+            <customfonts.MyTextView
+                android:id="@+id/date_trans"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:padding="5dp"
+                android:text="Date"
+                android:textColor="@color/doff"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/tabcontent"
         android:background="@drawable/splash"
         android:layout_width="match_parent"

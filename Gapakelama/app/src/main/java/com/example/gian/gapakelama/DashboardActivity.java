@@ -13,17 +13,23 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.gian.gapakelama.Helper.NoTransaksi;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
 import com.example.gian.gapakelama.Navigations.MenuActivity;
 import com.example.gian.gapakelama.Sign.ProfileActivity;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.content.ContentValues.TAG;
 
 public class DashboardActivity extends Activity {
 
@@ -58,6 +64,20 @@ public class DashboardActivity extends Activity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.orderButton:
+
+                DateFormat df = new SimpleDateFormat("yyMMddHHmmss");
+                String no_meja = SharedPrefManager.getInstance(this).getScan();
+
+                String date = df.format(Calendar.getInstance().getTime());
+
+                String noStruck = no_meja+date;
+
+                Log.d(TAG, "onViewClicked: "+noStruck);
+
+                NoTransaksi noTransaksi = new NoTransaksi(noStruck);
+
+                SharedPrefManager.getInstance(getApplicationContext()).setNoStruk(noTransaksi);
+
                 Intent it = new Intent(DashboardActivity.this, MenuActivity.class);
                 startActivity(it);
                 finish();

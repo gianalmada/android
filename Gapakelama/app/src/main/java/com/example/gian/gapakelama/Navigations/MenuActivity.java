@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -33,8 +34,8 @@ import com.example.gian.gapakelama.Menus.Minuman;
 import com.example.gian.gapakelama.Menus.MinumanAdapter;
 import com.example.gian.gapakelama.R;
 import com.example.gian.gapakelama.Sign.SigninActivity;
+import com.example.gian.gapakelama.Util.Server;
 import com.example.gian.gapakelama.animation.AnimationTabsListener;
-import com.nex3z.notificationbadge.NotificationBadge;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +45,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import customfonts.MyTextView;
 
 import static android.content.ContentValues.TAG;
 
@@ -55,13 +55,7 @@ public class MenuActivity extends Activity {
 
     TabHost tabHost;
 
-    MyTextView tab1, tab2;
-
     TextView no_meja;
-
-    SharedPrefManager sharedPrefManager;
-
-    NotificationBadge mBadge;
 
     private RecyclerView recyclerView1,recyclerView2;
     MakananAdapter adapter;
@@ -70,7 +64,6 @@ public class MenuActivity extends Activity {
     List<Makanan> productList;
     List<Minuman> productList2;
 
-    int listOrders = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -99,7 +92,6 @@ public class MenuActivity extends Activity {
 
         loadMakanan();
         loadMinuman();
-
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -146,18 +138,26 @@ public class MenuActivity extends Activity {
 
                 switch (item.getItemId()) {
 
-                    case R.id.taborder:
-                        Intent intent0 = new Intent(MenuActivity.this, OrderActivity.class);
-                        startActivity(intent0);
-                        overridePendingTransition(0, 0);
+                    case R.id.tabchart:
+
+                        Integer list = Server.cartRepository.countCartItems();
+
+                        if(list > 0 || list != null){
+                            Intent intent0 = new Intent(MenuActivity.this, ChartActivity.class);
+                            startActivity(intent0);
+                            overridePendingTransition(0, 0);
+                        } else {
+                            Toast.makeText(MenuActivity.this, "Cart Masih Kosong", Toast.LENGTH_LONG).show();
+                        }
+
                         break;
 
                     case R.id.tabmenu:
 
                         break;
 
-                    case R.id.tabchart:
-                        Intent intent2 = new Intent(MenuActivity.this, ChartActivity.class);
+                    case R.id.taborder:
+                        Intent intent2 = new Intent(MenuActivity.this, OrderActivity.class);
                         startActivity(intent2);
                         overridePendingTransition(0, 0);
                         break;

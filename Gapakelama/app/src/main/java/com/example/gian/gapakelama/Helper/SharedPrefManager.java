@@ -23,6 +23,8 @@ public class SharedPrefManager {
     private static final String KEY_TABLENO = "keytableno";
     private static final String KEY_STATUS = "keytstatus";
 
+    private static final String KEY_TRANSAKSI = "keytransaksi";
+
     private static SharedPrefManager mInstance;
     private static Context mCtx;
 
@@ -52,6 +54,13 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_TABLENO, scanQR.getNo_meja());
+        editor.apply();
+    }
+
+    public void setNoStruk(NoTransaksi noStruk) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_TRANSAKSI, noStruk.getNo_trans());
         editor.apply();
     }
 
@@ -98,6 +107,12 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String nomeja = sharedPreferences.getString(KEY_TABLENO, null);
         return  nomeja;
+    }
+
+    public String getNoStruk() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String noStruk = sharedPreferences.getString(KEY_TRANSAKSI, null);
+        return  noStruk;
     }
 
     //this method will logout the user
