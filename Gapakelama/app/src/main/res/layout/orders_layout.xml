@@ -17,15 +17,43 @@
         android:padding="10dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="3dp">
+        
+        <RelativeLayout
+            android:id="@+id/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            
+            <ImageView
+                android:id="@+id/delete_item"
+                android:src="@drawable/baseline_delete_outline_black_48dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="5dp"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_toLeftOf="@+id/delete_item"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="DELETE"
+                android:layout_margin="5dp"/>
+            
+        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/view_foreground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:background="#fff"
             android:padding="5dp">
 
             <LinearLayout
-                android:layout_width="335dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
@@ -38,14 +66,14 @@
                     android:orientation="horizontal">
 
                     <customfonts.MyTextView
-                        android:id="@+id/id_menu_order"
+                        android:id="@+id/nama_menu_order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="Id Makanan"
+                        android:text="nama"
                         android:textAlignment="textStart"
                         android:textColor="@color/doff"
                         android:textSize="16sp" />
@@ -56,7 +84,7 @@
                         android:layout_weight="1" />
 
                     <customfonts.MyTextView
-                        android:id="@+id/nama_menu_order"
+                        android:id="@+id/harga_menu_order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -80,7 +108,7 @@
                     android:orientation="horizontal">
 
                     <customfonts.MyTextView
-                        android:id="@+id/harga_menu_order"
+                        android:id="@+id/subtotal_menu_order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -100,27 +128,41 @@
 
                     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                         android:id="@+id/qty_menu_order"
-                        android:layout_width="60dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
+                        android:layout_gravity="right"
                         android:ems="10"
                         android:inputType="numberSigned"
                         android:padding="5dp" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
-            <ImageButton
-                android:id="@+id/delete_item"
-                android:layout_width="20dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:src="@drawable/baseline_delete_outline_black_48dp"
-                tools:background="@android:color/transparent"
-                tools:scaleType="centerInside" />
+                    <customfonts.MyTextView
+                        android:id="@+id/myTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Catatan" />
+
+                    <EditText
+                        android:id="@+id/catatan_menu"
+                        android:hint="Tambahkan Catatan"
+                        android:lines="1"
+                        android:minLines="2"
+                        android:inputType="textMultiLine"
+                        android:layout_margin="8dp"
+                        android:padding="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"/>
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

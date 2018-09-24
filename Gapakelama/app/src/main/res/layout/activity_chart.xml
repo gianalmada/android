@@ -83,7 +83,7 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/cart"
+            android:id="@+id/orders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#fff"
@@ -108,23 +108,13 @@
         android:layout_gravity="bottom">
 
         <LinearLayout
-            android:id="@+id/cart"
+            android:id="@+id/orders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#fff"
             android:orientation="vertical"
             android:padding="10dp">
 
-            <customfonts.MyTextView
-                android:id="@+id/toolbar_title"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:padding="5dp"
-                android:text="Total : Rp."
-                android:textColor="@color/colorPrimary"
-                android:textSize="25sp" />
 
             <Button
                 android:id="@+id/confirmOrder"

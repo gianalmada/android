@@ -19,13 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.gian.gapakelama.Database.Model.DataSource.CartRepository;
+import com.example.gian.gapakelama.Database.Model.Local.CartDataSource;
+import com.example.gian.gapakelama.Database.Model.Local.CartDatabase;
 import com.example.gian.gapakelama.Helper.BottomNavigationViewHelper;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
 import com.example.gian.gapakelama.Menus.Makanan;
@@ -93,6 +95,8 @@ public class MenuActivity extends Activity {
         loadMakanan();
         loadMinuman();
 
+        initDB();
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
@@ -139,17 +143,9 @@ public class MenuActivity extends Activity {
                 switch (item.getItemId()) {
 
                     case R.id.tabchart:
-
-                        Integer list = Server.cartRepository.countCartItems();
-
-                        if(list > 0 || list != null){
-                            Intent intent0 = new Intent(MenuActivity.this, ChartActivity.class);
-                            startActivity(intent0);
-                            overridePendingTransition(0, 0);
-                        } else {
-                            Toast.makeText(MenuActivity.this, "Cart Masih Kosong", Toast.LENGTH_LONG).show();
-                        }
-
+                        Intent intent0 = new Intent(MenuActivity.this, ChartActivity.class);
+                        startActivity(intent0);
+                        overridePendingTransition(0, 0);
                         break;
 
                     case R.id.tabmenu:
@@ -173,6 +169,11 @@ public class MenuActivity extends Activity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    private void initDB() {
+        Server.cartDatabase = CartDatabase.getInstance(this);
+        Server.cartRepository = CartRepository.getInstance(CartDataSource.getInstance(Server.cartDatabase.cartDAO()));
     }
 
     private void loadMakanan(){

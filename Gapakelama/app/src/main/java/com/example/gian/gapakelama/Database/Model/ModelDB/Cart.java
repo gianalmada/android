@@ -28,4 +28,7 @@ public class Cart {
     @ColumnInfo(name = "qty_menu")
     public int qty_menu;
 
+    @ColumnInfo(name = "catatan_menu")
+    public String catatan_menu;
+
 }

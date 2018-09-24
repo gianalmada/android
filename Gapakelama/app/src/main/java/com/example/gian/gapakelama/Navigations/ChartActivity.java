@@ -2,12 +2,15 @@ package com.example.gian.gapakelama.Navigations;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -15,35 +18,42 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.gian.gapakelama.Database.Model.DataSource.CartRepository;
-import com.example.gian.gapakelama.Database.Model.Local.CartDataSource;
-import com.example.gian.gapakelama.Database.Model.Local.CartDatabase;
+import com.example.gian.gapakelama.Database.Model.ModelDB.Cart;
 import com.example.gian.gapakelama.Helper.BottomNavigationViewHelper;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
-import com.example.gian.gapakelama.Orders.OrderArray;
 import com.example.gian.gapakelama.Orders.OrdersAdapter;
 import com.example.gian.gapakelama.R;
 import com.example.gian.gapakelama.Sign.SigninActivity;
+import com.example.gian.gapakelama.Util.RecyclerItemTouchHelper;
+import com.example.gian.gapakelama.Util.RecyclerItemTouchHelperListener;
 import com.example.gian.gapakelama.Util.Server;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.content.ContentValues.TAG;
 
-public class ChartActivity extends Activity {
+public class ChartActivity extends Activity implements RecyclerItemTouchHelperListener{
 
     private RecyclerView recyclerView;
 
-    OrdersAdapter adapter;
-
-    OrderArray orders;
+    CompositeDisposable compositeDisposable;
 
     @BindView(R.id.title_struck)
     TextView nostruck;
@@ -51,7 +61,14 @@ public class ChartActivity extends Activity {
     @BindView(R.id.date_trans)
     TextView date_trans;
 
-//    List<Orders> productList;
+    @BindView(R.id.confirmOrder)
+    Button confirm;
+
+    List<Cart> localCart = new ArrayList<>();
+
+    RelativeLayout rootLayout;
+
+    OrdersAdapter ordersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +81,9 @@ public class ChartActivity extends Activity {
             return;
         }
 
-        Log.d(TAG, "onCreate: "+Server.cartRepository.getCartList());
+        compositeDisposable = new CompositeDisposable();
+        
+        rootLayout = (RelativeLayout)findViewById(R.id.rootLayout);
 
         ButterKnife.bind(this);
 
@@ -81,7 +100,10 @@ public class ChartActivity extends Activity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        initDB();
+        ItemTouchHelper.SimpleCallback simpleCallback = new RecyclerItemTouchHelper(0,ItemTouchHelper.LEFT,this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
+
+        loadCartList();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -129,14 +151,89 @@ public class ChartActivity extends Activity {
 
     }
 
-    private void initDB() {
-        Server.cartDatabase = CartDatabase.getInstance(this);
-        Server.cartRepository = CartRepository.getInstance(CartDataSource.getInstance(Server.cartDatabase.cartDAO()));
+    @OnClick(R.id.confirmOrder)
+    public void setConfirm(View view){
+        Intent intent0 = new Intent(ChartActivity.this, OrderActivity.class);
+        startActivity(intent0);
+        overridePendingTransition(0, 0);
+        Toast.makeText(this, "Pesanan anda terkirim, silahkan lakukan konfirmasi pembayaran !",
+                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadCartList();
+    }
+
+    private void loadCartList() {
+        compositeDisposable.add(
+                Server.cartRepository.getCartList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<List<Cart>>() {
+                    @Override
+                    public void accept(List<Cart> carts) throws Exception {
+                        displayCartList(carts);
+                    }
+                })
+        );
+        
+    }
+
+    private void displayCartList(List<Cart> carts) {
+        localCart = carts;
+        ordersAdapter = new OrdersAdapter(this, carts);
+        recyclerView.setAdapter(ordersAdapter);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+
+        if(viewHolder instanceof OrdersAdapter.ProductViewHolder){
+            String name = localCart.get(viewHolder.getAdapterPosition()).nama_menu;
+
+            final Cart deleteItem = localCart.get(viewHolder.getAdapterPosition());
+
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            Log.d(TAG, "onSwiped: "+deletedIndex);
+
+            ordersAdapter.removeItem(deletedIndex);
+
+            Server.cartRepository.deleteCartItem(deleteItem);
+
+            Snackbar snackbar = Snackbar.make(rootLayout, new StringBuilder(name).append(" berhasil dihapus ! ").toString(),Snackbar.LENGTH_LONG);
+
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ordersAdapter.restoreItem(deleteItem,deletedIndex);
+                    Server.cartRepository.insertToCart(deleteItem);
+                }
+            });
+
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
+        }
     }
 }

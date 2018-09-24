@@ -17,6 +17,7 @@ import com.example.gian.gapakelama.Helper.BottomNavigationViewHelper;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
 import com.example.gian.gapakelama.R;
 import com.example.gian.gapakelama.Sign.SigninActivity;
+import com.example.gian.gapakelama.Util.Server;
 
 public class OrderActivity extends Activity {
 
@@ -30,6 +31,8 @@ public class OrderActivity extends Activity {
             startActivity(new Intent(this, SigninActivity.class));
             return;
         }
+
+        Server.cartRepository.emptyCart();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navbottom);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

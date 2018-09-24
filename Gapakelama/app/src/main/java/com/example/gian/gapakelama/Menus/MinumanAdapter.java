@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.gian.gapakelama.Database.Model.ModelDB.Cart;
 import com.example.gian.gapakelama.R;
+import com.example.gian.gapakelama.Util.Server;
+import com.google.gson.Gson;
 
 import java.util.List;
 
 import customfonts.MyTextView;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by gian on 04/09/2018.
@@ -59,12 +65,12 @@ public class MinumanAdapter extends RecyclerView.Adapter<MinumanAdapter.ProductV
 
                 showAddToCartDialog(position);
 
-                holder.cardView.setClickable(false);
+//                holder.cardView.setClickable(false);
             }
         });
     }
 
-    private void showAddToCartDialog(int position) {
+    private void showAddToCartDialog(final int position) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mCtx);
         View itemView = LayoutInflater.from(mCtx)
@@ -73,7 +79,7 @@ public class MinumanAdapter extends RecyclerView.Adapter<MinumanAdapter.ProductV
         ImageView img_selected_menu = (ImageView)itemView.findViewById(R.id.img_menu_selected);
         MyTextView name_selected_menu = (MyTextView)itemView.findViewById(R.id.nama_menu_cart);
         MyTextView harga_selected_menu = (MyTextView)itemView.findViewById(R.id.harga_menu_cart);
-        EditText catatan_menu = (EditText)itemView.findViewById(R.id.catatan);
+        final EditText catatanmenu = (EditText)itemView.findViewById(R.id.catatan);
         ElegantNumberButton set_qty = (ElegantNumberButton)itemView.findViewById(R.id.qty_menu_cart);
 
         Glide.with(mCtx).load(productList2.get(position).getImage()).into(img_selected_menu);
@@ -81,13 +87,41 @@ public class MinumanAdapter extends RecyclerView.Adapter<MinumanAdapter.ProductV
         name_selected_menu.setText(productList2.get(position).getNama());
         harga_selected_menu.setText("Rp."+String.valueOf(productList2.get(position).getHarga()));
 
+        final int[] qty = new int[1];
+
+        set_qty.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+            @Override
+            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                qty[0] = newValue;
+            }
+        });
+
         builder.setView(itemView);
         builder.setNegativeButton("Add to Cart", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                Toast.makeText(mCtx, "Item Berhasil di Tambahkan",
-                        Toast.LENGTH_LONG).show();
+                if(qty[0] > 0){
+
+                    Cart cartItem = new Cart();
+                    cartItem.id_menu = productList2.get(position).getId().toString();
+                    cartItem.nama_menu = productList2.get(position).getNama().toString();
+                    cartItem.harga_menu = productList2.get(position).getHarga();
+                    cartItem.qty_menu = qty[0];
+                    cartItem.catatan_menu = catatanmenu.getEditableText().toString();
+
+                    Server.cartRepository.insertToCart(cartItem);
+
+                    Log.d(TAG, "onClick: "+ new Gson().toJson(cartItem));
+
+                    dialogInterface.dismiss();
+
+                    Toast.makeText(mCtx, "Item Berhasil di Tambahkan",
+                            Toast.LENGTH_LONG).show();
+                } else {
+
+                    Toast.makeText(mCtx, "Anda belum memasukkan jumlah yang dipesan !",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 

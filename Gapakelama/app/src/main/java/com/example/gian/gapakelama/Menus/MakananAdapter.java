@@ -66,7 +66,7 @@ public class MakananAdapter extends RecyclerView.Adapter<MakananAdapter.ProductV
 
                 showAddToCartDialog(position);
 
-                holder.cardView.setClickable(false);
+//                holder.cardView.setClickable(false);
             }
         });
     }
@@ -80,7 +80,7 @@ public class MakananAdapter extends RecyclerView.Adapter<MakananAdapter.ProductV
         ImageView img_selected_menu = (ImageView)itemView.findViewById(R.id.img_menu_selected);
         MyTextView name_selected_menu = (MyTextView)itemView.findViewById(R.id.nama_menu_cart);
         MyTextView harga_selected_menu = (MyTextView)itemView.findViewById(R.id.harga_menu_cart);
-        EditText catatan_menu = (EditText)itemView.findViewById(R.id.catatan);
+        final EditText catatanmenu = (EditText)itemView.findViewById(R.id.catatan);
         ElegantNumberButton set_qty = (ElegantNumberButton)itemView.findViewById(R.id.qty_menu_cart);
 
         Glide.with(mCtx).load(productList.get(position).getImage()).into(img_selected_menu);
@@ -102,24 +102,25 @@ public class MakananAdapter extends RecyclerView.Adapter<MakananAdapter.ProductV
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Cart cartItem = new Cart();
-                cartItem.id_menu = productList.get(position).getId().toString();
-                cartItem.nama_menu = productList.get(position).getNama().toString();
-                cartItem.harga_menu = productList.get(position).getHarga();
-                cartItem.qty_menu = qty[0];
-
                 if(qty[0] > 0){
 
-                    dialogInterface.dismiss();
+                    Cart cartItem = new Cart();
+                    cartItem.id_menu = productList.get(position).getId().toString();
+                    cartItem.nama_menu = productList.get(position).getNama().toString();
+                    cartItem.harga_menu = productList.get(position).getHarga();
+                    cartItem.qty_menu = qty[0];
+                    cartItem.catatan_menu = catatanmenu.getEditableText().toString();
 
-//                    Server.cartRepository.emptyCart();
                     Server.cartRepository.insertToCart(cartItem);
 
                     Log.d(TAG, "onClick: "+ new Gson().toJson(cartItem));
 
+                    dialogInterface.dismiss();
+
                     Toast.makeText(mCtx, "Item Berhasil di Tambahkan",
                             Toast.LENGTH_LONG).show();
                 } else {
+
                     Toast.makeText(mCtx, "Anda belum memasukkan jumlah yang dipesan !",
                             Toast.LENGTH_LONG).show();
                 }
