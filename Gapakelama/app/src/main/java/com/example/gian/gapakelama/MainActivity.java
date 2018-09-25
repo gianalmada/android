@@ -1,17 +1,21 @@
 package com.example.gian.gapakelama;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,6 +36,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class MainActivity extends Activity implements ZXingScannerView.ResultHandler {
@@ -39,7 +46,32 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
     private ZXingScannerView mScannerView;
     String getNo_meja;
     final Context context = this;
+
     RequestQueue requestQueue;
+
+    @BindView(R.id.button_cek)
+    Button cekMeja;
+
+    // Camera Permissions
+    private static final int REQUEST_CAMERA_PERMISSION = 1;
+    private static String TAG = "QRCodeActivity";
+    private static String[] PERMISSIONS_CAMERA = {
+            Manifest.permission.CAMERA
+    };
+
+    public static void verifyCameraPermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_CAMERA,
+                    REQUEST_CAMERA_PERMISSION
+            );
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +90,33 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
             return;
         }
 
+        verifyCameraPermissions(this);
+
+        ButterKnife.bind(this);
+
         requestQueue = Volley.newRequestQueue(getBaseContext());
 
-        mScannerView = new ZXingScannerView(this);
-        setContentView(mScannerView);
+        initScannerView();
 
         Toast toast = Toast.makeText(getApplicationContext(), "Silahkan scan QR Code yang tertera dimeja anda!",
                 Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    private void initScannerView() {
+        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frame_layout_camera);
+        mScannerView = new ZXingScannerView(this);
+        mScannerView.setAutoFocus(true);
+        mScannerView.setResultHandler(this);
+        frameLayout.addView(mScannerView);
+    }
+
+    @OnClick(R.id.button_cek)
+    public void setCekMeja(View view){
+
+        Toast.makeText(this, "Pesanan anda terkirim, silahkan lakukan konfirmasi pembayaran !",
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override

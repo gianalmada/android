@@ -23,6 +23,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.gian.gapakelama.Database.Model.ModelDB.Cart;
 import com.example.gian.gapakelama.Helper.BottomNavigationViewHelper;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
@@ -37,7 +43,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,6 +78,8 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
 
     OrdersAdapter ordersAdapter;
 
+    RequestQueue requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +96,8 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
         rootLayout = (RelativeLayout)findViewById(R.id.rootLayout);
 
         ButterKnife.bind(this);
+
+        requestQueue = Volley.newRequestQueue(getBaseContext());
 
         String no_struck = SharedPrefManager.getInstance(this).getNoStruk();
         nostruck.setText("No. Transaksi : "+no_struck);
@@ -153,11 +165,16 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
 
     @OnClick(R.id.confirmOrder)
     public void setConfirm(View view){
+
+        postOrder();
+
         Intent intent0 = new Intent(ChartActivity.this, OrderActivity.class);
         startActivity(intent0);
         overridePendingTransition(0, 0);
         Toast.makeText(this, "Pesanan anda terkirim, silahkan lakukan konfirmasi pembayaran !",
                 Toast.LENGTH_LONG).show();
+
+
     }
 
     @Override
@@ -235,5 +252,54 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
             snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
         }
+    }
+
+    private void postOrder(){
+
+        final String url = "http://gapakelama.net/JSON/postOrders.php";
+
+        for(int i = 0; i <ordersAdapter.getItemCount(); i++){
+
+            Log.d(TAG, "loop ke: "+i);
+
+            final String id_transaksi = SharedPrefManager.getInstance(this).getNoStruk();
+            final String id_menu = localCart.get(i).id_menu;
+            final String qty_menu = String.valueOf(localCart.get(i).qty_menu);
+            final String harga_menu = String.valueOf(localCart.get(i).harga_menu);
+            final String catatan = localCart.get(i).catatan_menu;
+
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                            Log.d("myTag", response);
+//                        Toast.makeText(DashboardActivity.this, response, Toast.LENGTH_LONG).show();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("myTag", error.toString());
+//                        Toast.makeText(DashboardActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }){
+                @Override
+                protected Map<String,String> getParams(){
+                    Map<String,String> params = new HashMap<String, String>();
+                    params.put("order_id",id_transaksi);
+                    params.put("id_menu",id_menu);
+                    params.put("qty", qty_menu);
+                    params.put("harga", harga_menu);
+                    params.put("catatan", catatan);
+                    return params;
+                }
+
+            };
+            requestQueue.add(stringRequest);
+            Log.d(TAG, "postOrder: "+stringRequest);
+        }
+
     }
 }
