@@ -141,12 +141,14 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
 
                     case R.id.taborder:
                         Intent intent0 = new Intent(ChartActivity.this, OrderActivity.class);
+                        finish();
                         startActivity(intent0);
                         overridePendingTransition(0, 0);
                         break;
 
                     case R.id.tabmenu:
                         Intent intent1 = new Intent(ChartActivity.this, MenuActivity.class);
+                        finish();
                         startActivity(intent1);
                         overridePendingTransition(0, 0);
                         break;
@@ -258,6 +260,8 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
 
         final String url = "http://gapakelama.net/JSON/postOrders.php";
 
+        double total_price = 0;
+
         for(int i = 0; i <ordersAdapter.getItemCount(); i++){
 
             Log.d(TAG, "loop ke: "+i);
@@ -299,7 +303,86 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
             };
             requestQueue.add(stringRequest);
             Log.d(TAG, "postOrder: "+stringRequest);
+            total_price += localCart.get(i).qty_menu*localCart.get(i).harga_menu;
         }
 
+        insertMaster(total_price);
+
+    }
+
+    private void insertMaster(final double total_price) {
+
+        final String url = "http://gapakelama.net/JSON/postMasterOrder.php";
+        final String id_transaksi = SharedPrefManager.getInstance(this).getNoStruk();
+        final String user_id = SharedPrefManager.getInstance(this).getUsername();
+        final String table_no = SharedPrefManager.getInstance(this).getScan();
+        final String price = String.valueOf(total_price);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("myTag", response);
+//                        Toast.makeText(DashboardActivity.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("myTag", error.toString());
+//                        Toast.makeText(DashboardActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("order_id",id_transaksi);
+                params.put("user_id",user_id);
+                params.put("table_no", table_no);
+                params.put("total_bayar", price);
+                return params;
+            }
+
+        };
+        requestQueue.add(stringRequest);
+        setProgres();
+    }
+
+
+    private void setProgres() {
+        final String no_mejas = SharedPrefManager.getInstance(this).getScan();
+        final String status = "true";
+        final String user_id = SharedPrefManager.getInstance(this).getUsername();
+
+        final String url = "http://gapakelama.net/JSON/setStatus.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("myTag", response);
+//                        Toast.makeText(DashboardActivity.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("myTag", error.toString());
+//                        Toast.makeText(DashboardActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("no_meja", no_mejas);
+                params.put("statusNow", status);
+                params.put("user_id", user_id);
+                params.put("progress","2");
+                return params;
+            }
+
+        };
+        requestQueue.add(stringRequest);
     }
 }

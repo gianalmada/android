@@ -144,6 +144,7 @@ public class MenuActivity extends Activity {
 
                     case R.id.tabchart:
                         Intent intent0 = new Intent(MenuActivity.this, ChartActivity.class);
+                        finish();
                         startActivity(intent0);
                         overridePendingTransition(0, 0);
                         break;
@@ -154,6 +155,7 @@ public class MenuActivity extends Activity {
 
                     case R.id.taborder:
                         Intent intent2 = new Intent(MenuActivity.this, OrderActivity.class);
+                        finish();
                         startActivity(intent2);
                         overridePendingTransition(0, 0);
                         break;

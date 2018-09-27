@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/endblue"
+    app:cardCornerRadius="4dp"
+    android:id="@+id/cardMeja">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:orientation="horizontal">
+
+            <customfonts.MyTextView
+                android:id="@+id/no_meja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="30dp"
+                android:textColor="@color/white"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right">
+                <customfonts.MyTextView
+                    android:id="@+id/statusmeja"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="[Aktif]"
+                    android:textSize="15dp"
+                    android:textColor="@color/white"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <customfonts.MyTextView
+            android:id="@+id/usermeja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="User Id : Gian"
+            android:textSize="10dp"
+            android:textColor="@color/white"/>
+
+        <customfonts.MyTextView
+            android:id="@+id/startmeja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Start : 19:50:23"
+            android:textSize="10dp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

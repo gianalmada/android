@@ -11,6 +11,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -27,13 +29,17 @@ import com.android.volley.toolbox.Volley;
 import com.example.gian.gapakelama.Helper.ScanQR;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
 import com.example.gian.gapakelama.Helper.URLs;
+import com.example.gian.gapakelama.ListMeja.Meja;
+import com.example.gian.gapakelama.ListMeja.MejaAdapter;
 import com.example.gian.gapakelama.ModelDB.RequestHandler;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -48,6 +54,12 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
     final Context context = this;
 
     RequestQueue requestQueue;
+
+    private RecyclerView recyclerView;
+
+    List<Meja> mejaList;
+
+    MejaAdapter mejaAdapter;
 
     @BindView(R.id.button_cek)
     Button cekMeja;
@@ -91,6 +103,12 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
         }
 
         verifyCameraPermissions(this);
+
+        mejaList = new ArrayList<>();
+
+        recyclerView = (RecyclerView) findViewById(R.id.mejaRecycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ButterKnife.bind(this);
 
@@ -292,6 +310,7 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
                 params.put("no_meja",no_meja);
                 params.put("statusNow",status);
                 params.put("user_id", user_id);
+                params.put("progress","7");
                 return params;
             }
 

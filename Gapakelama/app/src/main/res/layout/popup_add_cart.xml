@@ -80,13 +80,13 @@
         android:gravity="right"
         android:padding="1dp">
 
-            <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-                android:id="@+id/qty_menu_cart"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberSigned"
-                android:padding="5dp" />
+        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+            android:id="@+id/qty_menu_cart"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:padding="5dp" />
 
 
     </LinearLayout>

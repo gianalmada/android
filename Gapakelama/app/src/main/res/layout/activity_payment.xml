@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:elevation="5dp"
+                android:elevation="2dp"
                 android:padding="10dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="3dp">
@@ -89,7 +89,7 @@
                             android:paddingBottom="5dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:text="Date : dd-mm-yyyy"
+                            android:text="Date : -"
                             android:textColor="@color/endblue"
                             android:textSize="16sp" />
 
@@ -107,7 +107,7 @@
                                 android:paddingBottom="5dp"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="No. Struk"
+                                android:text="-"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/doff"
                                 android:textSize="16sp" />
@@ -125,7 +125,7 @@
                                 android:paddingBottom="5dp"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="No."
+                                android:text="No. -"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/doff"
                                 android:textSize="20sp" />
@@ -163,14 +163,14 @@
                                 android:layout_weight="1" />
 
                             <customfonts.MyTextView
-                                android:id="@+id/transaksi_id"
+                                android:id="@+id/total_bayar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:paddingBottom="5dp"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
-                                android:text="Rp. 100.000,-"
+                                android:text="Rp. 0"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/doff"
                                 android:textSize="19sp" />
@@ -253,7 +253,7 @@
             android:padding="10dp">
 
             <Button
-                android:id="@+id/confirmOrder"
+                android:id="@+id/paymentButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/buttonstyle_sign"

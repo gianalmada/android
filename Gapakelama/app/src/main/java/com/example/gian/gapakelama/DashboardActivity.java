@@ -78,6 +78,8 @@ public class DashboardActivity extends Activity {
 
                 SharedPrefManager.getInstance(getApplicationContext()).setNoStruk(noTransaksi);
 
+                setProgres();
+
                 Intent it = new Intent(DashboardActivity.this, MenuActivity.class);
                 startActivity(it);
                 finish();
@@ -91,13 +93,50 @@ public class DashboardActivity extends Activity {
                 startActivity(it3);
                 break;
             case R.id.exitButton:
-                gantiStatus();
+                stopTransaction();
                 SharedPrefManager.getInstance(this).endOrders();
                 break;
         }
     }
 
-    private void gantiStatus() {
+    private void setProgres() {
+        final String no_mejas = getNo_meja;
+        final String status = "true";
+        final String user_id = SharedPrefManager.getInstance(this).getUsername();
+        final String progress = "1";
+
+        final String url = "http://gapakelama.net/JSON/setStatus.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("myTag", response);
+//                        Toast.makeText(DashboardActivity.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("myTag", error.toString());
+//                        Toast.makeText(DashboardActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("no_meja", no_mejas);
+                params.put("statusNow", status);
+                params.put("user_id", user_id);
+                params.put("progress",progress);
+                return params;
+            }
+
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    private void stopTransaction() {
 
         final String no_mejas = getNo_meja;
         final String status = "false";
@@ -126,6 +165,7 @@ public class DashboardActivity extends Activity {
                 params.put("no_meja", no_mejas);
                 params.put("statusNow", status);
                 params.put("user_id", user_id);
+                params.put("progress","8");
                 return params;
             }
 
