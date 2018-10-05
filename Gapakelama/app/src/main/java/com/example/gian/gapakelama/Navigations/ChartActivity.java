@@ -100,12 +100,12 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
         requestQueue = Volley.newRequestQueue(getBaseContext());
 
         String no_struck = SharedPrefManager.getInstance(this).getNoStruk();
-        nostruck.setText("No. Transaksi : "+no_struck);
+        nostruck.setText(no_struck);
 
         DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
 
         String date = df.format(Calendar.getInstance().getTime());
-        date_trans.setText("Date :"+date);
+        date_trans.setText(date);
 
 
         recyclerView = (RecyclerView) findViewById(R.id.cartRecycler);
@@ -129,7 +129,7 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
             iconView.setLayoutParams(layoutParams);
         }
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(2);
+        MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
 
 
@@ -170,7 +170,10 @@ public class ChartActivity extends Activity implements RecyclerItemTouchHelperLi
 
         postOrder();
 
+        Server.cartRepository.emptyCart();
+
         Intent intent0 = new Intent(ChartActivity.this, OrderActivity.class);
+        finish();
         startActivity(intent0);
         overridePendingTransition(0, 0);
         Toast.makeText(this, "Pesanan anda terkirim, silahkan lakukan konfirmasi pembayaran !",

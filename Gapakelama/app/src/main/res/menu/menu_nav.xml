@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.gian.gapakelama.Navigations.MenuActivity">
-    <item
-        android:id="@+id/taborder"
-        android:title="Order"
-        android:icon="@drawable/ic_payment"
-        android:iconTint="#000000"/>
 
     <item
         android:id="@+id/tabmenu"
@@ -19,6 +14,12 @@
         android:id="@+id/tabchart"
         android:title="Cart"
         android:icon="@drawable/ic_order"
+        android:iconTint="#000000"/>
+
+    <item
+        android:id="@+id/taborder"
+        android:title="Order"
+        android:icon="@drawable/ic_payment"
         android:iconTint="#000000"/>
 
 </menu>

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.example.gian.gapakelama.MainActivity;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 
 //here for this class we are using a singleton pattern
@@ -128,7 +127,7 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(KEY_TABLENO);
+        editor.remove(KEY_TRANSAKSI);
         editor.apply();
-        mCtx.startActivity(new Intent(mCtx, MainActivity.class));
     }
 }

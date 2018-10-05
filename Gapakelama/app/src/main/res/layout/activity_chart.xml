@@ -21,7 +21,7 @@
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:text="Order List"
             android:textColor="@color/colorPrimary"
             android:textSize="25sp" />
@@ -39,20 +39,35 @@
             android:id="@+id/struck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
+            android:background="@color/startblue"
             android:orientation="vertical"
             android:padding="10dp">
 
-            <customfonts.MyTextView
-                android:id="@+id/title_struck"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:padding="5dp"
-                android:text="No Stuck"
-                android:textColor="@color/doff"
-                android:textSize="15sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_order"
+                    android:tint="@color/white"
+                    android:layout_gravity="center"/>
+
+                <customfonts.MyTextView
+                    android:id="@+id/title_struck"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:text="No Stuck"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -60,16 +75,33 @@
                 android:background="@color/colorhint"
                 android:padding="5dp" />
 
-            <customfonts.MyTextView
-                android:id="@+id/date_trans"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:padding="5dp"
-                android:text="Date"
-                android:textColor="@color/doff"
-                android:textSize="10sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <customfonts.MyTextView
+                    android:id="@+id/date_trans"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="104dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Date"
+                    android:textColor="@color/white"
+                    android:textAlignment="textEnd"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:src="@drawable/outline_calendar_today_white_48dp"
+                    android:tint="@color/white" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

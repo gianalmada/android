@@ -11,8 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -29,39 +27,27 @@ import com.android.volley.toolbox.Volley;
 import com.example.gian.gapakelama.Helper.ScanQR;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
 import com.example.gian.gapakelama.Helper.URLs;
-import com.example.gian.gapakelama.ListMeja.Meja;
-import com.example.gian.gapakelama.ListMeja.MejaAdapter;
+import com.example.gian.gapakelama.ListMeja.MejaActivity;
 import com.example.gian.gapakelama.ModelDB.RequestHandler;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class MainActivity extends Activity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView mScannerView;
+
     String getNo_meja;
     final Context context = this;
 
     RequestQueue requestQueue;
 
-    private RecyclerView recyclerView;
-
-    List<Meja> mejaList;
-
-    MejaAdapter mejaAdapter;
-
-    @BindView(R.id.button_cek)
     Button cekMeja;
 
     // Camera Permissions
@@ -104,13 +90,14 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
 
         verifyCameraPermissions(this);
 
-        mejaList = new ArrayList<>();
+        cekMeja = (Button) findViewById(R.id.button_cek);
 
-        recyclerView = (RecyclerView) findViewById(R.id.mejaRecycler);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        ButterKnife.bind(this);
+        cekMeja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MejaActivity.class));
+            }
+        });
 
         requestQueue = Volley.newRequestQueue(getBaseContext());
 
@@ -130,12 +117,6 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
         frameLayout.addView(mScannerView);
     }
 
-    @OnClick(R.id.button_cek)
-    public void setCekMeja(View view){
-
-        Toast.makeText(this, "Pesanan anda terkirim, silahkan lakukan konfirmasi pembayaran !",
-                Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onResume() {
@@ -161,6 +142,7 @@ public class MainActivity extends Activity implements ZXingScannerView.ResultHan
 
         mScannerView.resumeCameraPreview(this);
     }
+
 
     private void cekScan() {
         mScannerView.stopCamera();

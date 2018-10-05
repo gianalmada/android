@@ -39,6 +39,8 @@
         <activity android:name=".Navigations.ChartActivity" />
         <activity android:name=".LocationActivity" />
         <activity android:name=".DashboardActivity" />
+        <activity android:name=".ListMeja.MejaActivity" />
+        <activity android:name=".ConfirmActivity" />
         <activity android:name=".Sign.ProfileActivity"></activity>
     </application>
 

@@ -26,9 +26,7 @@ public class Meja {
         return id_user;
     }
 
-    public double getStarttime() {
-        return starttime;
-    }
+    public String getStarttime() { return starttime; }
 
     public String getStatus() {
         return status;

@@ -27,7 +27,7 @@ public class MyEditText extends EditText {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato-Light.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Exo2.0-SemiBold.otf");
             setTypeface(tf);
         }
     }

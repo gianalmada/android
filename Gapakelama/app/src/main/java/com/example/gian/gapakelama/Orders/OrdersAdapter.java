@@ -5,13 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.gian.gapakelama.Database.Model.ModelDB.Cart;
 import com.example.gian.gapakelama.R;
 
@@ -50,18 +47,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ProductVie
 
         holder.textViewHarga.setText(new StringBuilder("Rp").append(orders.harga_menu));
 
-        holder.qty_order.setNumber(String.valueOf(orders.qty_menu));
+        holder.qty_order.setText(String.valueOf(orders.qty_menu));
 
         final double[] subtotal = {orders.qty_menu * orders.harga_menu};
-
-        holder.qty_order.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
-            @Override
-            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-                holder.qty_order.setNumber(String.valueOf(newValue));
-                subtotal[0] = newValue * orders.harga_menu;
-                holder.textViewSubTotal.setText(new StringBuilder("Rp").append(subtotal[0]));
-            }
-        });
 
         holder.textViewSubTotal.setText(new StringBuilder("Rp").append(subtotal[0]));
 
@@ -78,15 +66,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ProductVie
 
         TextView textViewSubTotal, textViewNama, textViewHarga;
 
-        ImageButton deleteItem;
-
-        ElegantNumberButton qty_order;
+        TextView qty_order;
 
         public RelativeLayout view_background;
 
         public LinearLayout view_foreground;
 
-        EditText catatan_menu;
+        TextView catatan_menu;
 
         public ProductViewHolder(View itemView){
             super(itemView);

@@ -109,7 +109,7 @@ public class MenuActivity extends Activity {
             iconView.setLayoutParams(layoutParams);
         }
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
+        MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
 
         String nomeja = SharedPrefManager.getInstance(this).getScan();

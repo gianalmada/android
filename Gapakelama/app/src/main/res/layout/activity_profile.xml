@@ -88,27 +88,27 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal"
-                        android:paddingLeft="25dp">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="25dp"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:paddingLeft="25dp">-->
 
-                        <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/baseline_phone_android_black_48dp" />
+                        <!--<ImageView-->
+                            <!--android:layout_width="36dp"-->
+                            <!--android:layout_height="36dp"-->
+                            <!--android:src="@drawable/baseline_phone_android_black_48dp" />-->
 
-                        <TextView
-                            android:id="@+id/phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingLeft="20dp"
-                            android:text="+266 225 225"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                        <!--<TextView-->
+                            <!--android:id="@+id/phone"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:paddingLeft="20dp"-->
+                            <!--android:text="+266 225 225"-->
+                            <!--android:textStyle="bold" />-->
+                    <!--</LinearLayout>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"

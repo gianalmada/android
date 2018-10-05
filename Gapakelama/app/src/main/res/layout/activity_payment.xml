@@ -24,7 +24,7 @@
             android:textSize="25sp"
             android:textColor="@color/colorPrimary"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:layout_gravity="center" />
+            android:layout_gravity="left" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -62,36 +62,59 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_margin="5dp"
                 android:elevation="2dp"
                 android:padding="10dp"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="3dp">
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/startblue">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:padding="10dp">
 
                     <LinearLayout
-                        android:layout_width="335dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="vertical"
                         android:padding="5dp">
 
-                        <customfonts.MyTextView
-                            android:id="@+id/date_order"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
-                            android:text="Date : -"
-                            android:textColor="@color/endblue"
-                            android:textSize="16sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <customfonts.MyTextView
+                                android:id="@+id/date_order"
+                                android:layout_width="191dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="left"
+                                android:gravity="center"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="Date : -"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="10dp"
+                                android:src="@drawable/outline_calendar_today_white_48dp"
+                                android:tint="@color/white" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorhint" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -99,35 +122,45 @@
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_order"
+                                android:tint="@color/white" />
+
                             <customfonts.MyTextView
                                 android:id="@+id/transaksi_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:paddingBottom="5dp"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
                                 android:text="-"
                                 android:textAlignment="textStart"
-                                android:textColor="@color/doff"
-                                android:textSize="16sp" />
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
 
                             <Space
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1" />
 
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/table"
+                                android:tint="@color/white" />
+
                             <customfonts.MyTextView
                                 android:id="@+id/no_meja_order"
-                                android:layout_width="wrap_content"
+                                android:layout_width="72dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:paddingBottom="5dp"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
                                 android:text="No. -"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/doff"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/white"
                                 android:textSize="20sp" />
 
                         </LinearLayout>
@@ -143,51 +176,40 @@
                             android:layout_below="@+id/image_makanan"
                             android:orientation="horizontal">
 
-                            <customfonts.MyTextView
-                                android:id="@+id/harga_menu_order"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:paddingBottom="5dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:text="Total"
-                                android:textAlignment="center"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
                             <Space
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1" />
 
                             <customfonts.MyTextView
-                                android:id="@+id/total_bayar"
+                                android:id="@+id/harga_menu_order"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="Total Bayar"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+
+                            <customfonts.MyTextView
+                                android:id="@+id/total_bayar"
+                                android:layout_width="96dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
                                 android:text="Rp. 0"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/doff"
-                                android:textSize="19sp" />
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/white"
+                                android:textSize="15sp" />
 
                         </LinearLayout>
 
                     </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/delete_item"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="10dp"
-                        android:src="@drawable/baseline_delete_outline_black_48dp"
-                        tools:background="@android:color/transparent"
-                        tools:scaleType="centerInside" />
 
                 </LinearLayout>
 

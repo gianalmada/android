@@ -28,8 +28,8 @@ public class ProfileActivity extends Activity {
     MyTextView name;
     @BindView(R.id.email)
     TextView email;
-    @BindView(R.id.phone)
-    TextView phone;
+//    @BindView(R.id.phone)
+//    TextView phone;
 
     SharedPrefManager sharedPrefManager;
     RequestQueue requestQueue;

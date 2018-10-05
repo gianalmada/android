@@ -2,6 +2,7 @@ package com.example.gian.gapakelama.Navigations;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -23,9 +24,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.gian.gapakelama.DashboardActivity;
+import com.example.gian.gapakelama.ConfirmActivity;
 import com.example.gian.gapakelama.Helper.BottomNavigationViewHelper;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
+import com.example.gian.gapakelama.ModelDB.RequestHandler;
 import com.example.gian.gapakelama.R;
 import com.example.gian.gapakelama.Sign.SigninActivity;
 
@@ -94,7 +96,7 @@ public class OrderActivity extends Activity {
             iconView.setLayoutParams(layoutParams);
         }
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -127,7 +129,13 @@ public class OrderActivity extends Activity {
         });
     }
 
-//    private void getHystory() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getRecent();
+    }
+
+    //    private void getHystory() {
 //
 //        StringRequest stringRequest = new StringRequest(Request.Method.GET, HISTORY,
 //                new Response.Listener<String>() {
@@ -173,6 +181,63 @@ public class OrderActivity extends Activity {
 
     private void getRecent() {
 
+        class getRecent extends AsyncTask<Void, Void, String>{
+            @Override
+            protected void onPostExecute(String s) {
+
+                super.onPostExecute(s);
+
+                try {
+                    //converting response to json object
+                    JSONObject obj = new JSONObject(s);
+
+                    //if no error in response
+                    if (!obj.getBoolean("error")) {
+//                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+
+
+                        //getting the user from the response
+                        JSONObject recent = obj.getJSONObject("scan");
+
+                        String id = recent.getString("order_id");
+                        String meja = recent.getString("table_no");
+                        String date = recent.getString("date");
+                        String bayar = recent.getString("total_bayar");
+
+                        no_struk.setText(id);
+                        no_meja.setText(meja);
+                        dates.setText(date);
+                        price.setText("Rp. "+bayar);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Tidak ada traksaksi aktif !", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+
+                RequestHandler requestHandler = new RequestHandler();
+
+                String no_meja = SharedPrefManager.getInstance(OrderActivity.this).getScan();
+
+                //creating request parameters
+                HashMap<String, String> params = new HashMap<>();
+                params.put("nomeja",no_meja);
+
+                final String url = "http://gapakelama.net/JSON/GetAktifTrans.php";
+
+                //returing the response
+                return requestHandler.sendPostRequest(url, params);
+            }
+        }
+
+        getRecent sc = new getRecent();
+        sc.execute();
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, RECENT,
                 new Response.Listener<String>() {
                     @Override
@@ -217,8 +282,9 @@ public class OrderActivity extends Activity {
 
         updateStatus();
 
-        Intent intent0 = new Intent(OrderActivity.this, DashboardActivity.class);
+        Intent intent0 = new Intent(OrderActivity.this, ConfirmActivity.class);
         startActivity(intent0);
+        finish();
         overridePendingTransition(0, 0);
         Toast.makeText(this, "Konfirmasikan pembayaran anda kepada pelayan yang akan datang !",
                 Toast.LENGTH_LONG).show();

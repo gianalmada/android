@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.gian.gapakelama.DashboardActivity">
 
-    <ImageView
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/signinbg" />
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="top"
+        android:background="@drawable/toolbar_background">
+
+        <customfonts.MyTextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="gapakelama"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp" />
+
+        <Space
+            android:layout_width="180dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/help_button"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:background="@android:color/transparent"
+            android:cropToPadding="true"
+            android:padding="9dp"
+            android:elevation="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/outline_live_help_black_48dp"
+            android:tint="#ebf442" />
+
+    </android.support.v7.widget.Toolbar>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,27 +51,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_alignBottom="@+id/frameLayout"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="@string/todo"
-                android:src="@drawable/signupheader" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
+            android:paddingTop="50dp"
             android:background="@android:color/transparent">
 
             <LinearLayout
@@ -55,21 +69,43 @@
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:adjustViewBounds="false"
+                    android:tint="#0846aa"
                     android:background="@drawable/buttonstyle_whitebg"
                     android:cropToPadding="false"
                     android:elevation="5dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/neworder" />
 
+                <customfonts.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order"
+                    android:textSize="20sp"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:textColor="@color/colortext"
+                    android:layout_gravity="center" />
+
                 <ImageButton
                     android:id="@+id/aboutButton"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:layout_marginTop="30dp"
+                    android:tint="#ba5005"
                     android:background="@drawable/buttonstyle_whitebg"
                     android:elevation="5dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/about" />
+
+                <customfonts.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tentang Kami"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colortext"
+                    android:layout_gravity="center" />
 
             </LinearLayout>
 
@@ -84,20 +120,44 @@
                     android:id="@+id/profileButton"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
+                    android:tint="@color/colorPrimary"
                     android:background="@drawable/buttonstyle_whitebg"
                     android:scaleType="fitCenter"
                     android:src="@drawable/users"
                     android:elevation="5dp"/>
+
+                <customfonts.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profil"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colortext"
+                    android:layout_gravity="center" />
+
 
                 <ImageButton
                     android:id="@+id/exitButton"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:layout_marginTop="30dp"
+                    android:tint="#960303"
                     android:background="@drawable/buttonstyle_whitebg"
                     android:scaleType="fitStart"
                     android:src="@drawable/baseline_exit_to_app_black_48dp"
                     android:elevation="5dp"/>
+
+                <customfonts.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop Transaksi"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colortext"
+                    android:layout_gravity="center" />
+
 
             </LinearLayout>
 
@@ -106,8 +166,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:background="@color/colorPrimary"
+            android:gravity="left"
+            android:background="@color/startblue"
             android:orientation="horizontal"
             android:elevation="50dp">
 
@@ -116,15 +176,28 @@
                 android:layout_height="58dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
+                android:tint="@color/white"
                 android:src="@drawable/ic_table"/>
 
             <TextView
                 android:id="@+id/nomeja"
-                android:layout_width="96dp"
-                android:layout_height="58dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="5dp"
                 android:gravity="center"
                 android:text="No. Meja"
-                android:textColor="@color/colortext"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/statusNow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:gravity="center"
+                android:text="No. Meja"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -132,4 +205,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
