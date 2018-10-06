@@ -1,11 +1,13 @@
 package com.example.gian.gapakelama;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +19,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.gian.gapakelama.Helper.NoTransaksi;
 import com.example.gian.gapakelama.Helper.SharedPrefManager;
+import com.example.gian.gapakelama.ModelDB.RequestHandler;
 import com.example.gian.gapakelama.Navigations.MenuActivity;
 import com.example.gian.gapakelama.Sign.ProfileActivity;
 import com.example.gian.gapakelama.Sign.SigninActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -44,7 +50,7 @@ public class DashboardActivity extends Activity {
     String getNo_meja;
 
     @BindView(R.id.help_button)
-    Button help;
+    ImageButton help;
 
     SharedPrefManager sharedPrefManager;
     RequestQueue requestQueue;
@@ -189,10 +195,12 @@ public class DashboardActivity extends Activity {
 
         help();
 
-        Toast.makeText(this, "Mohon tunggu hingga pelayan datang !",
-                Toast.LENGTH_LONG).show();
+    }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        cekProgress();
     }
 
     @Override
@@ -203,27 +211,83 @@ public class DashboardActivity extends Activity {
 
     private void cekProgress(){
 
+        class cekProgress extends AsyncTask <Void, Void, String> {
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler requestHandler = new RequestHandler();
+
+                String no_struck = SharedPrefManager.getInstance(DashboardActivity.this).getNoStruk();
+                String no_meja = SharedPrefManager.getInstance(DashboardActivity.this).getScan();
+
+                //creating request parameters
+                HashMap<String, String> params = new HashMap<>();
+                params.put("no_meja", no_meja);
+
+                final String url = "http://gapakelama.net/JSON/cekProgress.php";
+
+                //returing the response
+                return requestHandler.sendPostRequest(url, params);
+            }
+
+            @SuppressLint("ResourceAsColor")
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                try {
+
+                    JSONObject obj = new JSONObject(s);
+
+                    //if no error in response
+                    if (!obj.getBoolean("error")) {
+//                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+
+
+                        //getting the user from the response
+                        JSONObject scanJson = obj.getJSONObject("scan");
+
+                        String status = scanJson.getString("progress");
+                        //sedang digunakan
+
+                        if(status.equals("Delivering Order")){
+                            statusNow.setTextColor(statusNow.getContext().getResources().getColor(R.color.red));
+                        } else {
+                            statusNow.setTextColor(statusNow.getContext().getResources().getColor(R.color.white));
+                        }
+
+                        statusNow.setText(status);
+                    }
+
+                } catch(JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        cekProgress cp = new cekProgress();
+        cp.execute();
     }
 
     private void help(){
 
         final String no_mejas = getNo_meja;
 
-        final String url = "http://gapakelama.net/JSON/cekProgress.php";
+        final String url = "http://gapakelama.net/JSON/needHelp.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("myTag", response);
-//                        Toast.makeText(DashboardActivity.this, response, Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(DashboardActivity.this, "Mohon tunggu hingga pelayan datang !",
+                                Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("myTag", error.toString());
-//                        Toast.makeText(DashboardActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(DashboardActivity.this, "Permohonan gagal, coba ulangi beberapa saat lagi !",
+                                Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
